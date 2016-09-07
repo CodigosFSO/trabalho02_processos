@@ -3,30 +3,34 @@
 #include <unistd.h>
 #include <signal.h>
 
-sig_atomic_t flag = 1;
+sig_atomic_t flag = 0;
 
 void signal_handler(int signal_number)
 {
-	flag = 0;
+	flag = 1;
 }
 
 int main ()
 {
 	pid_t alarm_child;
-	signal(SIGALRM, alarm_wait);
+	struct sigaction sa;
+	memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = &signal_handler;
+	sigaction(SIGALRM, &sa, NULL);
+
 	alarm_child = fork();
 	if (alarm_child != 0) {
-		printf("antes do pause\n");
+		printf("Id do pai: %d\n", (int) getpid());
 		pause();
-		printf("depois do pause\n");
 	}
 	else {
-		alarm(1);
-		while(flag) {
-			sleep(1);
-		}
+		sleep(5);
+		kill(getppid(), SIGALRM);
+		exit(0);
 	}
-
-	printf("Alarme disparado!\n");
+	if(flag) {
+		printf ("ID do processo disparando o alarme %d\n", (int) getpid ());
+		printf("Alarme disparado!\n");
+	}
 	return 0;
 }
