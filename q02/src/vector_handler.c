@@ -18,15 +18,22 @@ pthread_t* initialize_thread_vectors(int threads_amount)
 	return vector;
 }
 
-struct thread_arguments* initialize_thread_arguments_vectors(int arguments_amount)
+struct thread_w_arguments* initialize_thread_w_arguments_vectors(int arguments_amount, int* vector_w)
 {
-	struct thread_arguments* vector = (struct thread_arguments*) malloc(arguments_amount * sizeof(struct thread_arguments));
-	return vector;
+	struct thread_w_arguments* args_vector = (struct thread_w_arguments*) malloc(arguments_amount * 
+		sizeof(struct thread_w_arguments));
+
+	int counter = 0;
+	while(counter < arguments_amount) {
+		args_vector[counter].vector = vector_w;
+		counter++;
+	}
+
+	return args_vector;
 }
 
 void print_vector(int* vector, int integers_amount)
 {
-	printf("imprimindo vetor: \n");
 	int counter = 0;
 	while(counter < integers_amount) {
 		printf("%d ", vector[counter]);
