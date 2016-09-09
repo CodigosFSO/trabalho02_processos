@@ -10,10 +10,11 @@ void* fill_vector_w(void* thread_arguments)
 	return NULL;
 }
 
-void create_threads_w(pthread_t* threads, struct thread_w_arguments* thread_args, int threads_amount)
+void create_threads_w(pthread_t* threads, struct thread_w_arguments* thread_args, int* vector_w, int threads_amount)
 {
 	int counter = 0;
 	while(counter < threads_amount) {
+		thread_args[counter].vector = vector_w;
 		thread_args[counter].vector_position = counter;
 		pthread_create(&threads[counter], NULL, &fill_vector_w, &thread_args[counter]);
 		counter++;

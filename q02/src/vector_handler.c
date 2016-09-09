@@ -18,16 +18,18 @@ pthread_t* initialize_thread_vectors(int threads_amount)
 	return vector;
 }
 
-struct thread_w_arguments* initialize_thread_w_arguments_vectors(int arguments_amount, int* vector_w)
+struct thread_w_arguments* initialize_thread_w_arguments_vectors(int arguments_amount)
 {
 	struct thread_w_arguments* args_vector = (struct thread_w_arguments*) malloc(arguments_amount * 
 		sizeof(struct thread_w_arguments));
 
-	int counter = 0;
-	while(counter < arguments_amount) {
-		args_vector[counter].vector = vector_w;
-		counter++;
-	}
+	return args_vector;
+}
+
+struct second_step_threads_arguments* initialize_second_threads_arguments(int arguments_amount)
+{
+	struct second_step_threads_arguments* args_vector = (struct second_step_threads_arguments*)
+		malloc(arguments_amount * sizeof(struct thread_w_arguments));
 
 	return args_vector;
 }

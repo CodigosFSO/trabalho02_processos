@@ -9,9 +9,16 @@ struct thread_w_arguments
 	int vector_position;
 };
 
+struct second_step_thread_arguments
+{
+	int* vector;
+	int first_position;
+	int second_position;
+};
+
 
 void* fill_vector_w(void* thread_arguments);
-void create_threads_w(pthread_t* threads, struct thread_w_arguments* thread_args, int threads_amount);
+void create_threads_w(pthread_t* threads, struct thread_w_arguments* thread_args, int* vector_w, int threads_amount);
 void join_threads(pthread_t* threads, int threads_amount);
 
 #endif
