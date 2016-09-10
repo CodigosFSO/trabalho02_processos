@@ -29,7 +29,7 @@ struct thread_w_arguments* initialize_thread_w_arguments_vectors(int arguments_a
 struct second_step_threads_arguments* initialize_second_threads_arguments(int arguments_amount)
 {
 	struct second_step_threads_arguments* args_vector = (struct second_step_threads_arguments*)
-		malloc(arguments_amount * sizeof(struct thread_w_arguments));
+		malloc(arguments_amount * sizeof(struct second_step_threads_arguments));
 
 	return args_vector;
 }
